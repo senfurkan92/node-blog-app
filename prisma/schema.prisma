@@ -8,6 +8,7 @@ datasource db {
 }
 
 model User {
+  @@map("users")
   id Int @id @default(autoincrement())
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
@@ -20,13 +21,15 @@ model User {
 }
 
 model Profile {
+  @@map("profiles")
   id Int @id @default(autoincrement())
   bio String?
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
 }
 
 model Post {
+  @@map("pots")
   id Int @id @default(autoincrement())
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
@@ -34,7 +37,7 @@ model Post {
   title String
   content String?
   published Boolean @default(false)
-  author User @relation(fields: [authorId], references: [id])
+  author User? @relation(fields: [authorId], references: [id],  onDelete: SetDefault)
   authorId Int
 }
 
