@@ -7,14 +7,12 @@ class BaseService {
     }
 
     read(where) {  
-        console.log(where)  
         return this.dataSet.findUnique({
             where
         })
     } 
     
     readAll(filter) {    
-        console.log(filter)
         return this.dataSet.findMany(filter)
     } 
 
@@ -44,9 +42,6 @@ class BaseService {
     }
 
     remove(where) {
-        console.log({
-            where
-        })
         return this.dataSet.delete({
             where
         })
