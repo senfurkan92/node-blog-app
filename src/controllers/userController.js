@@ -20,14 +20,14 @@ const insert = async (req, resp, next) => {
     if(validation.isEmpty()) {
         req.body.password = await hash(req.body.password)
         const result = await userService.insert(req.body)
-        resp.json(result)
+        resp.status(201).json(result)
     } else {
         const errors = validation.array().map(x => ({
             param: x.param,
             msg: x.msg,
             val: x.value
         }))
-        resp.json(errors)
+        resp.status(200).json(errors)
     }
 }
 
@@ -58,9 +58,9 @@ const login = async (req, resp, next) => {
             isActive: result.isActive,
             emailConfirmed: result.emailConfirmed
         })
-        resp.json(result)
+        resp.status(200).json(result)
     } else {
-        resp.json(null)
+        resp.status(200).json(null)
     }
 }
 
