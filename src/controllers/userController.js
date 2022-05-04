@@ -1,7 +1,7 @@
 const userService =  require('../services/userService')
 const { validationResult } = require('express-validator')
 const { compare, hash } = require('../helpers/crypt')
-const { sign } = require('../helpers/jwt')
+const { sign, verify } = require('../helpers/jwt')
 
 const read = async (req, resp, next) => {
     const result = await userService.read({
@@ -64,11 +64,17 @@ const login = async (req, resp, next) => {
     }
 }
 
+const tokenCheck = async (req, resp, next) => {
+   const result = verify(req.headers.authorization);
+   resp.json(result);
+}
+
 module.exports = {
     read,
     readAll,
     insert,
     update,
     remove,
-    login
+    login,
+    tokenCheck,
 }

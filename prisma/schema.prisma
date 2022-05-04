@@ -28,17 +28,31 @@ model Profile {
   userId Int
 }
 
+model Category {
+  @@map("categories")
+  id Int @id @default(autoincrement())
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+  isActive Boolean @default(true)
+  name String @unique
+  posts Post[]
+}
+
 model Post {
-  @@map("pots")
+  @@map("posts")
   id Int @id @default(autoincrement())
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
   isActive Boolean @default(true)
   title String
-  content String?
+  caption String
+  content String
+  imgPath String
   published Boolean @default(false)
   author User? @relation(fields: [authorId], references: [id],  onDelete: SetDefault)
   authorId Int
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId Int
 }
 
 

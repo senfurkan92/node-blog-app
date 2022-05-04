@@ -12,5 +12,6 @@ router.post('/', auth(), controller.readAll)
 router.get('/:id', auth(), controller.read)
 router.patch('/:id', auth(), user_update_validator(), controller.update)
 router.delete('/:id', auth(), controller.remove)
+router.get('/token/check', controller.tokenCheck)
 
 module.exports = router
