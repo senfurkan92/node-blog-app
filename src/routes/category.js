@@ -7,4 +7,4 @@ router.get('/:id', controller.read)
 router.patch('/:id', controller.update)
 router.delete('/:id', controller.remove)
 
-module.exports = router;
+module.exports = router
