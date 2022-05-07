@@ -4,10 +4,20 @@ const fs = require('fs')
 const path = require('path')
 
 const read = async (req, resp, next) => {
-    const result = await postService.read({
-        id: Number(req.params.id)
+    const result = await postService.readAll({
+        where: {
+            id: Number(req.params.id),
+        },
+        include: {
+            author: true,
+            category: true
+        }
     })   
-    resp.json(result)
+    if (result.length > 0) {
+        resp.json(result[0])
+    } else {
+        resp.json(result)
+    }
 }
 
 const readAll = async (req, resp, next) => {
